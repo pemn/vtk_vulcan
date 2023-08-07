@@ -7,5 +7,5 @@ tools to convert between Maptek vulcan proprietary formats and VTK open source f
  - convert vtk grids to bmf block model
  - convert vtk mesh surfaces to 00t triangulations
 ## 💎 License
-Apache 2.0
+Apache 2.0  
 Copyright ![vale_logo_only](https://github.com/pemn/assets/blob/main/vale_logo_only_r.svg?raw=true) Vale 2023
