@@ -19,15 +19,10 @@ from _gui import usage_gui, pyd_zip_extract
 pyd_zip_extract()
 
 import pyvista as pv
-from pd_vtk import vtk_mesh_info
+
+def vtk_to_bmf(grid, output):
 
 # convert a vulcan surface to a vulcan solid
-def bm_from_vtk(input_path, output):
-  if not output:
-    output = os.path.splitext(input_path)[0] + '.bmf'
-
-  grid = pv.read(input_path)
-  vtk_mesh_info(grid)
   xyzn = grid.dimensions
   xyz0 = np.zeros(3)
 
@@ -63,6 +58,24 @@ def bm_from_vtk(input_path, output):
           bm.put(k, float(v[n]))
       else:
         bm.put_string(k, str(v[n]))
+
+
+def bm_from_vtk(input_path, output = None):
+
+  mesh = pv.read(input_path)
+  print(mesh)
+  if mesh.GetDataObjectType() in [2,6]:
+    if not output:
+      output = os.path.splitext(input_path)[0] + '.bmf'
+    print(output)
+    vtk_to_bmf(mesh, output)
+  else:
+    if not output:
+      output = os.path.splitext(input_path)[0] + '.00t'
+    print(output)
+    from pd_vtk import pv_save
+    pv_save(mesh, output)
+
 
 
 main = bm_from_vtk
